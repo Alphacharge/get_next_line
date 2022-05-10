@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 12:05:03 by rbetz             #+#    #+#             */
-/*   Updated: 2022/05/10 10:59:42 by rbetz            ###   ########.fr       */
+/*   Updated: 2022/05/10 12:16:34 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,4 +17,5 @@ char *get_next_line(int fd)
 {
 	t_list	line;
 	line = create_list(1);
+	read(fd, )
 }
