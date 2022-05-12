@@ -6,16 +6,17 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 12:05:03 by rbetz             #+#    #+#             */
-/*   Updated: 2022/05/10 12:16:34 by rbetz            ###   ########.fr       */
+/*   Updated: 2022/05/12 11:42:48 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
 
-char *get_next_line(int fd)
+char	*get_next_line(int fd)
 {
-	t_list	line;
+	t_list	*line;
 	line = create_list(1);
-	read(fd, )
+	line->pos += read(fd, line->data, BUFFER_SIZE);
+	return (line->data);
 }

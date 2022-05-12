@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 12:04:54 by rbetz             #+#    #+#             */
-/*   Updated: 2022/05/10 11:00:39 by rbetz            ###   ########.fr       */
+/*   Updated: 2022/05/12 11:42:23 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@
 # include <unistd.h>
 # include <stdint.h>
 
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 5
+# endif
+
 typedef struct s_list
 {
 	char	*data;
@@ -27,8 +31,8 @@ typedef struct s_list
 }	t_list;
 
 char	*get_next_line(int fd);
-t_list	create_list(int i);
-void	delete_list(t_list string);
-void	str_append_char(t_list string, char c);
+t_list	*create_list(int i);
+void	delete_list(t_list *string);
+void	str_append_char(t_list *string, char c);
 
 #endif
