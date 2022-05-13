@@ -6,33 +6,28 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 12:04:54 by rbetz             #+#    #+#             */
-/*   Updated: 2022/05/12 11:42:23 by rbetz            ###   ########.fr       */
+/*   Updated: 2022/05/13 17:20:53 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
+# include <stdint.h>
 # include <stddef.h>
 # include <stdlib.h>
 # include <unistd.h>
-# include <stdint.h>
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 5
 # endif
 
-typedef struct s_list
-{
-	char	*data;
-	int		pos;
-	int		length;
-	int		size;
-}	t_list;
+//from libft
+int		ft_strlen(const char *s);
+char	*ft_strjoin(char *s1, char *s2);
+void	*ft_memcpy(void *dst, const void *src, size_t n);
 
+//for gnl
 char	*get_next_line(int fd);
-t_list	*create_list(int i);
-void	delete_list(t_list *string);
-void	str_append_char(t_list *string, char c);
-
+int		ft_isinset(char const c, char const *ptr);
 #endif

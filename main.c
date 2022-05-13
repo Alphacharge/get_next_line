@@ -6,13 +6,14 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 10:15:12 by rbetz             #+#    #+#             */
-/*   Updated: 2022/05/12 13:59:18 by rbetz            ###   ########.fr       */
+/*   Updated: 2022/05/13 17:24:06 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <strings.h>
 #include <fcntl.h>
+#include "get_next_line.h"
 
 #define RED "\033[1;31m"
 #define GREEN "\033[01;32m"
@@ -24,10 +25,12 @@ int main(void)
 	int	i;
 	int	fd1;
 	i=5;
-	fd1 = open("file.txt", O_RDONLY);
+	fd1 = open("./file.txt", O_RDONLY);
+	if (fd1 == -1)
+		printf("open failed");
 	while(i > 0)
 	{
-		printf("%s", gnl(fd1));
+		printf("%s", get_next_line(fd1));
 		i--;
 	}
 	return(1);

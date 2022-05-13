@@ -6,55 +6,34 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 11:54:40 by rbetz             #+#    #+#             */
-/*   Updated: 2022/05/12 15:38:16 by rbetz            ###   ########.fr       */
+/*   Updated: 2022/05/13 12:35:23 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdint.h>
-
-void	*ft_calloc(size_t count, size_t size)
-{
-	void	*ptr;
-
-	if (size < 1 || count < 1)
-	{
-		size = 0;
-		count = 1;
-	}
-	if (size > SIZE_MAX / count)
-		return (NULL);
-	ptr = malloc(count * size);
-	if (ptr == NULL)
-		return (NULL);
-	while (count > 1 || size > 1)
-	{
-		ptr[count * size] = '\0';
-		if (size > 1)
-			size--;
-		if (count > 1)
-			count--;
-	}
-	
-	return (ptr);
-}
+#include "get_next_line.h"
 
 char	*gnl(int fd)
 {
-	char c;
-	int	n;
-	int	i;
-	static char	*str;
-
-	n = 1;
-	str = ft_calloc(BUFFER_SIZE, n);
-	while (c != '\n' && c != '\0')
+	static t_list	**list;
+	t_list *tmp;
+	
+	if (BUFFER_SIZE < 1 || fd < 0)
+		return (NULL);
+	tmp = ft_lstiter(*list, fd);
+	if (tmp == NULL)
 	{
-		read(fd,&c,1);
-		if (i == BUFFER_SIZE)
-			{
-				n++;
-				str = realloc(BUFFERSIZE, n);
-			}
-		i++;
+		tmp = ft_lstnew(fd);
+		if (tmp == NULL)
+		{
+			ft_lstclear(list);
+			return (NULL);
+		}
+		*list = ft_lstaddfront(list, tmp);
+	}
+	while (1)
+	{
+		read(fd, tmp->data, BUFFER_SIZE);
+		
 	}
 }

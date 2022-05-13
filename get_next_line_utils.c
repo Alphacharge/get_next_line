@@ -6,56 +6,56 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 12:05:07 by rbetz             #+#    #+#             */
-/*   Updated: 2022/05/12 11:42:32 by rbetz            ###   ########.fr       */
+/*   Updated: 2022/05/13 17:17:25 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-t_list	*create_list(int i)
+int	ft_strlen(const char *s)
 {
-	t_list	*string;
-	if (i == 1)
+	int	i;
+
+	i = 0;
+	while (s[i] != '\0')
 	{
-		string = malloc(sizeof(t_list));
-		string->data = malloc(128);
-		if (string->data == NULL || string == NULL)
-			delete_list(string);
-		string->pos = 0;
-		string->length = 128;
-		string->size = i;
-		return (string);
+		i++;
 	}
-	else
-	{
-		t_list	*more;
-		more = malloc(sizeof(t_list));
-		more->data = malloc(128 * i);
-		if (more->data == NULL || more == NULL)
-			delete_list(more);
-		more->data = string->data;
-		more->pos = string->pos;
-		more->length = 128 * i;
-		more->size = i;
-		delete_list(string);
-		return (more);
-	}
+	return (i);
 }
 
-void	delete_list(t_list *string)
+char	*ft_strjoin(char *s1, char *s2)
 {
-	free(string->data);
-	free(string);
+	char	*p1;
+
+	if (s1 == NULL || s2 == NULL)
+		return (NULL);
+	p1 = malloc(ft_strlen(s1)+ft_strlen(s2)+1 * sizeof(char));
+	if (p1 == NULL)
+		return (NULL);
+	ft_memcpy(p1, s1, (size_t)ft_strlen(s1));
+	ft_memcpy(&p1[ft_strlen(s1)], s2, (size_t)ft_strlen(s2)+1);
+	// free(s1);
+	// free(s2);
+	return (p1);
 }
 
-void	str_append_char(t_list *string, char c)
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	if (string->pos >= string->length)
-		string = create_list(string->size + 1);
-	if (c != '\n' && c != '\0')
+	char	*d;
+	char	*s;
+	size_t	i;
+
+	d = (char *)dst;
+	s = (char *)src;
+	i = 0;
+	if (n > 0 && (dst != NULL || src != NULL))
 	{
-		string->pos = string->pos + 1;
-		string->data[string->pos] = c;
+		while (i < n)
+		{
+			d[i] = s[i];
+			i++;
+		}
 	}
+	return (dst);
 }
-
