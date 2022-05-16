@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 10:15:12 by rbetz             #+#    #+#             */
-/*   Updated: 2022/05/13 17:24:06 by rbetz            ###   ########.fr       */
+/*   Updated: 2022/05/16 16:17:44 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ int main(void)
 {
 	int	i;
 	int	fd1;
-	i=5;
+	i=3;
 	fd1 = open("./file.txt", O_RDONLY);
 	if (fd1 == -1)
 		printf("open failed");
 	while(i > 0)
 	{
-		printf("%s", get_next_line(fd1));
+		printf("#%s", get_next_line(fd1));
 		i--;
 	}
 	return(1);

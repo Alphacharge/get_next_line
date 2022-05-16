@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 12:05:07 by rbetz             #+#    #+#             */
-/*   Updated: 2022/05/13 17:17:25 by rbetz            ###   ########.fr       */
+/*   Updated: 2022/05/16 15:20:08 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@ char	*ft_strjoin(char *s1, char *s2)
 		return (NULL);
 	ft_memcpy(p1, s1, (size_t)ft_strlen(s1));
 	ft_memcpy(&p1[ft_strlen(s1)], s2, (size_t)ft_strlen(s2)+1);
-	// free(s1);
-	// free(s2);
+	free(s1);
 	return (p1);
 }
 
@@ -58,4 +57,29 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 		}
 	}
 	return (dst);
+}
+
+char	*ft_strdup(const char *s1)
+{
+	char	*ptr;
+
+	ptr = malloc(ft_strlen(s1)+1 * sizeof(char));
+	if (ptr == NULL)
+		return (NULL);
+	return ((char *) ft_memcpy(ptr, s1, (size_t)ft_strlen(s1)+1));
+}
+
+void	*ft_memset(void *b, int c, size_t len)
+{
+	char	*d;
+	size_t	i;
+
+	d = (char *)b;
+	i = 0;
+	while (i < len)
+	{
+		d[i] = c;
+		i++;
+	}
+	return (b);
 }
