@@ -6,11 +6,12 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 12:05:07 by rbetz             #+#    #+#             */
-/*   Updated: 2022/05/16 15:20:08 by rbetz            ###   ########.fr       */
+/*   Updated: 2022/05/16 17:52:26 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
 int	ft_strlen(const char *s)
 {
@@ -69,17 +70,21 @@ char	*ft_strdup(const char *s1)
 	return ((char *) ft_memcpy(ptr, s1, (size_t)ft_strlen(s1)+1));
 }
 
-void	*ft_memset(void *b, int c, size_t len)
+char	*ft_substr(char *s, unsigned int start, size_t len)
 {
-	char	*d;
-	size_t	i;
+	size_t	size;
+	char	*ptr;
 
-	d = (char *)b;
-	i = 0;
-	while (i < len)
-	{
-		d[i] = c;
-		i++;
-	}
-	return (b);
+	// printf("Start:%d	Len:%zu		", start, len);
+	if (s == NULL)
+		return (NULL);
+	size = (size_t)ft_strlen(s);
+	if (start >= size)
+		return (ft_strdup(""));
+	ptr = malloc(len + 1);
+	if (ptr == NULL)
+		return (NULL);
+	ft_memcpy(ptr, &s[start], len);
+	ptr[len] = '\0';
+	return (ptr);
 }

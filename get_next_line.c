@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 12:05:03 by rbetz             #+#    #+#             */
-/*   Updated: 2022/05/16 16:17:32 by rbetz            ###   ########.fr       */
+/*   Updated: 2022/05/16 17:52:21 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,24 +25,6 @@ int	ft_isinset(char const c, char const *ptr)
 	return (0);
 }
 
-char	*ft_substr(char const *s, unsigned int start, size_t len)
-{
-	size_t	size;
-	char	*ptr;
-
-	if (s == NULL)
-		return (NULL);
-	size = (size_t)ft_strlen(s);
-	if (start >= size)
-		return (ft_strdup(""));
-	ptr = malloc(len + 1);
-	if (ptr == NULL)
-		return (NULL);
-	ft_memcpy(ptr, &s[start], len);
-	ptr[len] = '\0';
-	return (ptr);
-}
-
 char	*get_next_line(int fd)
 {
 	static char line[BUFFER_SIZE + 1];
@@ -51,19 +33,34 @@ char	*get_next_line(int fd)
 	int			ret;
 	int			pos;
 
+	if (fd < 0 || BUFFER_SIZE < 1)
+		return (NULL);
 	cur_line = ft_strdup(line);
+	if (cur_line == NULL)
+		return (NULL);
 	while (ft_isinset('\n', cur_line) == 0)
 	{
 		ret = read(fd, line, BUFFER_SIZE);
 		if (ret <= 0)
 			break ;
 		cur_line = ft_strjoin(cur_line, line);
+		if (cur_line == NULL)
+			return (NULL);
 	}
 	pos = ft_isinset('\n', cur_line);
 	if (pos == 0 && ft_strlen(cur_line) > 0)
 		pos = ft_strlen(cur_line);
 	str_ret = ft_substr(cur_line, 0, pos +1);
+	//printf("Address of str_ret: ||%p||\n", str_ret);
+	//printf("Address of cur_line: ||%p||\n", cur_line);
+	if (str_ret == NULL || ret == -1)
+	{
+		//printf("hi");
+		free(cur_line);
+		return (NULL);
+	}
 	ft_memcpy(line, &cur_line[pos +1], ft_strlen(cur_line)-pos);
+	free(cur_line);
 	return (str_ret);
 }
 
@@ -86,39 +83,12 @@ char	*get_next_line(int fd)
 // 	i=5;
 // 	fd1 = open("./file.txt", O_RDONLY);
 // 	if (fd1 == -1)
-// 		printf("open failed");
+// 		//printf("open failed");
 // 	while(i > 0)
 // 	{
-// 		printf("%s", get_next_line(fd1));
+// 		//printf("%s", get_next_line(fd1));
 // 		i--;
 // 	}
 // 	return(1);
 // }
 
-
-	// cur_line = ft_strdup("");
-	// // if (ft_strlen(line)!= 0)
-	// // 	ft_memcpy(cur_line, line, ft_strlen(line));
-	// while (ft_isinset('\n', cur_line) == 0)
-	// {
-	// 	// printf("->%s\n", line);
-	// 	ret = read(fd, line, BUFFER_SIZE);
-	// 	line[BUFFER_SIZE] = '\0';
-	// 	//  printf("-->%s\n", line);
-	// 	if (ret <= 0)
-	// 		break ;
-	// 	// printf("-->>%s\n", cur_line);
-	// 	cur_line = ft_strjoin(cur_line, line);
-	// 	// printf("-->>>%s\n", cur_line);
-	// }
-	// if (ret > 0)
-	// {
-	// 	str_ret = malloc(sizeof(char) * (ft_isinset('\n', cur_line) + 2));
-	// 	str_ret[ft_isinset('\n', cur_line)+1] = '\0';
-	// 	ft_memcpy(str_ret, cur_line, ft_isinset('\n', cur_line));
-	// 	// ft_memcpy(line, &cur_line[ft_isinset('\n', cur_line)+1], (BUFFER_SIZE - ft_isinset('\n', cur_line)));
-	// 	// line[BUFFER_SIZE - ft_isinset('\n', cur_line) + 1] = '\0';
-	// 	// printf("-->%s\n", line);
-	// }
-	// else
-	// 	str_ret = malloc(sizeof(char) * ft_isinset('\0', cur_line));
