@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 10:15:12 by rbetz             #+#    #+#             */
-/*   Updated: 2022/05/16 17:51:34 by rbetz            ###   ########.fr       */
+/*   Updated: 2022/05/19 14:11:22 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 #define GREEN "\033[01;32m"
 #define NC "\033[0m"
 
-void check_leaks();
+// void check_leaks();
 
 char	*gnl(int fd);
 int main(void)
@@ -26,7 +26,7 @@ int main(void)
 	int	i;
 	int	fd1;
 	char *str;
-	i=2;
+	i=5;
 	fd1 = open("./file.txt", O_RDONLY);
 	if (fd1 == -1)
 		printf("open failed");
@@ -37,6 +37,7 @@ int main(void)
 		i--;
 		free(str);
 	}
-	check_leaks();
+	//  check_leaks();
+	// system("leaks a.out");
 	return(1);
 }

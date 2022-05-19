@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 12:05:03 by rbetz             #+#    #+#             */
-/*   Updated: 2022/05/16 17:52:21 by rbetz            ###   ########.fr       */
+/*   Updated: 2022/05/19 14:38:50 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,14 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE < 1)
 		return (NULL);
+	line[BUFFER_SIZE] = '\0';
 	cur_line = ft_strdup(line);
 	if (cur_line == NULL)
 		return (NULL);
 	while (ft_isinset('\n', cur_line) == 0)
 	{
 		ret = read(fd, line, BUFFER_SIZE);
+		// printf("%d\n", ret);
 		if (ret <= 0)
 			break ;
 		cur_line = ft_strjoin(cur_line, line);
@@ -57,10 +59,18 @@ char	*get_next_line(int fd)
 	{
 		//printf("hi");
 		free(cur_line);
+		free(str_ret);
 		return (NULL);
 	}
+	// printf("\nLine before copy:%s\n", line);
 	ft_memcpy(line, &cur_line[pos +1], ft_strlen(cur_line)-pos);
+	// printf("Line after copy:%s,%s,%d,%d\n", line, &cur_line[pos +1], pos + 1, ft_strlen(cur_line)-pos);
 	free(cur_line);
+	if (str_ret[0] == '\0')
+	{
+		free(str_ret);
+		return (NULL);
+	}
 	return (str_ret);
 }
 

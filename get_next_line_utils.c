@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 12:05:07 by rbetz             #+#    #+#             */
-/*   Updated: 2022/05/16 17:52:26 by rbetz            ###   ########.fr       */
+/*   Updated: 2022/05/17 10:38:18 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ char	*ft_strjoin(char *s1, char *s2)
 		return (NULL);
 	p1 = malloc(ft_strlen(s1)+ft_strlen(s2)+1 * sizeof(char));
 	if (p1 == NULL)
+	{
+		free(s1);
 		return (NULL);
+	}
 	ft_memcpy(p1, s1, (size_t)ft_strlen(s1));
 	ft_memcpy(&p1[ft_strlen(s1)], s2, (size_t)ft_strlen(s2)+1);
 	free(s1);
