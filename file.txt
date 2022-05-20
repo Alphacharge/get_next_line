@@ -1,2 +1,3 @@
-Line 1g
-Line 2gggt
+ABCDEF
+
+GHIJK

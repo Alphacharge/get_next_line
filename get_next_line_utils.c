@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 12:05:07 by rbetz             #+#    #+#             */
-/*   Updated: 2022/05/17 10:38:18 by rbetz            ###   ########.fr       */
+/*   Updated: 2022/05/20 15:25:30 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 	d = (char *)dst;
 	s = (char *)src;
 	i = 0;
+	ft_memset(d, '\0', ft_strlen(d));
 	if (n > 0 && (dst != NULL || src != NULL))
 	{
 		while (i < n)
@@ -90,4 +91,18 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 	ft_memcpy(ptr, &s[start], len);
 	ptr[len] = '\0';
 	return (ptr);
+}
+void	*ft_memset(void *b, int c, size_t len)
+{
+	char	*d;
+	size_t	i;
+
+	d = (char *)b;
+	i = 0;
+	while (i < len)
+	{
+		d[i] = c;
+		i++;
+	}
+	return (b);
 }
