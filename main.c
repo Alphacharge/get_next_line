@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/10 10:15:12 by rbetz             #+#    #+#             */
-/*   Updated: 2022/05/19 14:11:22 by rbetz            ###   ########.fr       */
+/*   Updated: 2022/05/20 13:13:44 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int main(void)
 	while(i > 0)
 	{
 		str = get_next_line(fd1);
-		printf("%s", str);
+		printf("Str = %s", str);
 		i--;
 		free(str);
 	}

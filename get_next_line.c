@@ -6,13 +6,13 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 12:05:03 by rbetz             #+#    #+#             */
-/*   Updated: 2022/05/19 14:38:50 by rbetz            ###   ########.fr       */
+/*   Updated: 2022/05/20 13:30:23 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdio.h>
-//Returns the Array index of the searched char
+
 int	ft_isinset(char const c, char const *ptr)
 {
 	int	i;
@@ -23,6 +23,42 @@ int	ft_isinset(char const c, char const *ptr)
 	if (ptr[i] != '\0')
 		return (i);
 	return (0);
+}
+
+void	*read_and_join(char **cur_line, const int fd, int *ret, char *line)
+{
+	while (ft_isinset('\n', *cur_line) == 0)
+	{
+		*ret = read(fd, line, BUFFER_SIZE);
+		line[*ret] = '\0';
+		// //printf("%d\n", ret);
+		if (*ret <= 0)
+			break ;
+		*cur_line = ft_strjoin(*cur_line, line);
+		if (*cur_line == NULL)
+			return (NULL);
+	}
+	return(*cur_line);
+}
+
+void	*hack_and_stack(int *pos, char **cur_line, char **str_ret, int *ret, char *line)
+{
+	// //printf("++\n||%s||\n||%s||\n",*cur_line, line);
+	if (*pos == 0 && ft_strlen(*cur_line) > 0)
+		*pos = ft_strlen(*cur_line);
+	*str_ret = ft_substr(*cur_line, 0, (*pos) + 1);
+	////printf("Address of str_ret: ||%p||\n", str_ret);
+	////printf("Address of cur_line: ||%p||\n", cur_line);
+	if (*str_ret == NULL || *ret == -1)
+	{
+		if (cur_line[0][0] != '\0')
+			free(cur_line);
+		// free(*str_ret);
+		return (NULL);
+	}
+	// //printf("\nLine before copy:%s\n", line);
+	ft_memcpy(line, &((*cur_line)[(*pos) + 1]), ft_strlen(*cur_line)-(*pos));
+	return(*str_ret);
 }
 
 char	*get_next_line(int fd)
@@ -39,32 +75,15 @@ char	*get_next_line(int fd)
 	cur_line = ft_strdup(line);
 	if (cur_line == NULL)
 		return (NULL);
-	while (ft_isinset('\n', cur_line) == 0)
-	{
-		ret = read(fd, line, BUFFER_SIZE);
-		// printf("%d\n", ret);
-		if (ret <= 0)
-			break ;
-		cur_line = ft_strjoin(cur_line, line);
-		if (cur_line == NULL)
-			return (NULL);
-	}
+	read_and_join(&cur_line, fd, &ret, line);
 	pos = ft_isinset('\n', cur_line);
-	if (pos == 0 && ft_strlen(cur_line) > 0)
-		pos = ft_strlen(cur_line);
-	str_ret = ft_substr(cur_line, 0, pos +1);
-	//printf("Address of str_ret: ||%p||\n", str_ret);
-	//printf("Address of cur_line: ||%p||\n", cur_line);
-	if (str_ret == NULL || ret == -1)
-	{
-		//printf("hi");
-		free(cur_line);
-		free(str_ret);
-		return (NULL);
-	}
-	// printf("\nLine before copy:%s\n", line);
-	ft_memcpy(line, &cur_line[pos +1], ft_strlen(cur_line)-pos);
-	// printf("Line after copy:%s,%s,%d,%d\n", line, &cur_line[pos +1], pos + 1, ft_strlen(cur_line)-pos);
+	// if (pos == -1)
+	// {
+	// 	free(cur_line);
+	// 	return (NULL);
+	// }
+	hack_and_stack(&pos, &cur_line, &str_ret, &ret, line);
+	//printf("Line after copy:%s,%s,%d,%d\n", line, &cur_line[pos +1], pos + 1, ft_strlen(cur_line)-pos);
 	free(cur_line);
 	if (str_ret[0] == '\0')
 	{
@@ -73,32 +92,3 @@ char	*get_next_line(int fd)
 	}
 	return (str_ret);
 }
-
-// #include <stdio.h>
-// #include <strings.h>
-// #include <fcntl.h>
-// #include "get_next_line.h"
-// #include "get_next_line_utils.c"
-
-
-// #define RED "\033[1;31m"
-// #define GREEN "\033[01;32m"
-// #define NC "\033[0m"
-
-// char	*gnl(int fd);
-// int main(void)
-// {
-// 	int	i;
-// 	int	fd1;
-// 	i=5;
-// 	fd1 = open("./file.txt", O_RDONLY);
-// 	if (fd1 == -1)
-// 		//printf("open failed");
-// 	while(i > 0)
-// 	{
-// 		//printf("%s", get_next_line(fd1));
-// 		i--;
-// 	}
-// 	return(1);
-// }
-

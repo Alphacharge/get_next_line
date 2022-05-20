@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 12:04:54 by rbetz             #+#    #+#             */
-/*   Updated: 2022/05/16 17:48:38 by rbetz            ###   ########.fr       */
+/*   Updated: 2022/05/20 12:41:09 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,6 @@ char	*ft_substr(char *s, unsigned int start, size_t len);
 //for gnl
 char	*get_next_line(int fd);
 int		ft_isinset(char const c, char const *ptr);
+void	*hack_and_stack(int *pos, char **cur_line, char **str_ret, int *ret, char *line);
+void	*read_and_join(char **cur_line, const int fd, int *ret, char *line);
 #endif
