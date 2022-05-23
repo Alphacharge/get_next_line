@@ -6,12 +6,11 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 12:05:07 by rbetz             #+#    #+#             */
-/*   Updated: 2022/05/20 15:25:30 by rbetz            ###   ########.fr       */
+/*   Updated: 2022/05/23 13:48:49 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 int	ft_strlen(const char *s)
 {
@@ -52,7 +51,6 @@ void	*ft_memcpy(void *dst, const void *src, size_t n)
 	d = (char *)dst;
 	s = (char *)src;
 	i = 0;
-	ft_memset(d, '\0', ft_strlen(d));
 	if (n > 0 && (dst != NULL || src != NULL))
 	{
 		while (i < n)
@@ -68,7 +66,7 @@ char	*ft_strdup(const char *s1)
 {
 	char	*ptr;
 
-	ptr = malloc(ft_strlen(s1)+1 * sizeof(char));
+	ptr = malloc((ft_strlen(s1)+1) * sizeof(char));
 	if (ptr == NULL)
 		return (NULL);
 	return ((char *) ft_memcpy(ptr, s1, (size_t)ft_strlen(s1)+1));
@@ -79,7 +77,6 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 	size_t	size;
 	char	*ptr;
 
-	// printf("Start:%d	Len:%zu		", start, len);
 	if (s == NULL)
 		return (NULL);
 	size = (size_t)ft_strlen(s);
@@ -91,18 +88,4 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 	ft_memcpy(ptr, &s[start], len);
 	ptr[len] = '\0';
 	return (ptr);
-}
-void	*ft_memset(void *b, int c, size_t len)
-{
-	char	*d;
-	size_t	i;
-
-	d = (char *)b;
-	i = 0;
-	while (i < len)
-	{
-		d[i] = c;
-		i++;
-	}
-	return (b);
 }
