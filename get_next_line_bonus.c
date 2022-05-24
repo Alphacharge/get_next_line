@@ -6,7 +6,7 @@
 /*   By: rbetz <rbetz@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 12:05:03 by rbetz             #+#    #+#             */
-/*   Updated: 2022/05/23 15:52:21 by rbetz            ###   ########.fr       */
+/*   Updated: 2022/05/24 11:17:02 by rbetz            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,12 @@ char	*get_next_line(int fd)
 	return (str_ret);
 }
 
-#include <stdio.h>
-#include <strings.h>
-#include <fcntl.h>
-#define RED "\033[1;31m"
-#define GREEN "\033[01;32m"
-#define NC "\033[0m"
+// #include <stdio.h>
+// #include <strings.h>
+// #include <fcntl.h>
+// #define RED "\033[1;31m"
+// #define GREEN "\033[01;32m"
+// #define NC "\033[0m"
 
 // int main(void)
 // {
@@ -98,7 +98,7 @@ char	*get_next_line(int fd)
 // 	fd2 = open("./file2.txt", O_RDONLY);
 // 	if (fd1 == -1 || fd2 == -1)
 // 		printf("open failed");
-	
+
 // 	str = get_next_line(fd1);
 // 	printf(RED"FD is %d Str = ||"GREEN"%s"RED"||"NC, fd1, str);
 // 	str = get_next_line(fd2);
@@ -120,7 +120,7 @@ char	*get_next_line(int fd)
 // 	str = get_next_line(fd2);
 // 	printf(RED"FD is %d Str = ||"GREEN"%s"RED"||"NC, fd2, str);
 // 	free(str);
-	
+
 // 	// system("leaks a.out");
 // 	return(1);
 // }
